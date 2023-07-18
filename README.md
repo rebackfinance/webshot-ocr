@@ -2,13 +2,13 @@
 webshot is a website screenshotting library in golang
 
 # Get Started
-In other to use this package, you need to first install `tesseract` on your machine and then download GekoDriver for your os from [https://github.com/mozilla/geckodriver/releases](https://github.com/mozilla/geckodriver/releases).
+In other to use this package, you need to first install `tesseract` on your machine and then download GeckoDriver for your os from [https://github.com/mozilla/geckodriver/releases](https://github.com/mozilla/geckodriver/releases).
 
 ### NOTE: The browser used in this package by default is firefox. Kindly install firefox if you don't have it on your machine already.
 # Installation
 This package can be installed by using the go command below.
 ```sh
-go get github.com/iqquee/webshot
+go get github.com/rebackfinance/webshot-ocr
 ```
 # Quick start
 ```sh
@@ -27,7 +27,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/iqquee/webshot"
+	webshot "github.com/rebackfinance/webshot-ocr"
 )
 
 func main() {
@@ -71,7 +71,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/iqquee/webshot"
+	webshot "github.com/rebackfinance/webshot-ocr"
 )
 
 func main() {

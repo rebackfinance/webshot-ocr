@@ -1,4 +1,4 @@
-module github.com/iqquee/webshot
+module github.com/rebackfinance/webshot-ocr
 
 go 1.20
 
