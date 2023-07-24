@@ -84,3 +84,43 @@ func main() {
 	}
 }
 ```
+
+# Extend
+Extend allow you to use use all of the functionalities provided by selenium
+
+
+You can use the Extend() to pretty much do whatever you wish as long as it's a functionality selenium supports. 
+```go
+package main
+
+import (
+	"fmt"
+
+	webshot "github.com/rebackfinance/webshot-ocr"
+)
+
+func main() {
+    config := webshot.NewConfig{
+		Address:     "http://localhost",
+		Port:        4444, // you can change accordingly to which ever port you wish
+		BrowserName: webshot.FirefoxBrowser,
+		DebugMode:   true, // set to true if you want to get the logs
+		DriverPath:  "", // your gekodriver path goes in here
+	}
+
+	driver, err := webshot.NewWebshot(config)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	service := driver.Extend()
+	imgBytes, err := service.Screenshot()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	fmt.Println(imgBytes)
+}
+```
