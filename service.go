@@ -9,10 +9,8 @@ import (
 
 // NewWebshot sets up a new browser with the config provided
 func NewWebshot(c NewConfig) (*Webshot, error) {
-	// var webdriver selenium.WebDriver
-
 	opts := []selenium.ServiceOption{
-		selenium.StartFrameBuffer(),
+		// selenium.StartFrameBuffer(),
 		selenium.GeckoDriver(c.DriverPath),
 		selenium.Output(os.Stderr),
 	}
