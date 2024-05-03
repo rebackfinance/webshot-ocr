@@ -22,7 +22,7 @@ func main() {
 		return
 	}
 
-	url := "https://google.com"
+	url := "https://github.com/iqquee"
 
 	byteImage, err := driver.Screenshot(url)
 	if err != nil {
