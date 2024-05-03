@@ -8,7 +8,7 @@ In other to use this package, you need to first install `tesseract` on your mach
 # Installation
 This package can be installed by using the go command below.
 ```sh
-go get github.com/rebackfinance/webshot-ocr
+go get github.com/rebackfinance/webshot-ocr@lates
 ```
 # Quick start
 ```sh
