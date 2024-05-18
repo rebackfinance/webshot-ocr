@@ -68,6 +68,7 @@ func (w *Webshot) Extend() selenium.WebDriver {
 	return w.Webdriver
 }
 
+// getFirefoxBinaryLocation gets firefox binary location
 func getFirefoxBinaryLocation() (string, error) {
 	var cmd *exec.Cmd
 
