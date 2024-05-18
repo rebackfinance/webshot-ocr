@@ -19,7 +19,7 @@ type (
 	// NewConfig is the config that sets up webshot for use
 	NewConfig struct {
 		// DriverPath is the webdriver for the browser
-		DriverPath string //
+		DriverPath string
 		// Address for the address e.g 127.0.0.1
 		Address string
 		// Port for the port to run the selenium server on e.g 8080
@@ -28,6 +28,8 @@ type (
 		DebugMode bool
 		// BrowserName is the name of the browser to use
 		BrowserName string
+		// FirefoxBinary is the firefox binary to use as the browser
+		FirefoxBinary string
 	}
 
 	// Webshot is the struct for the webdriver
