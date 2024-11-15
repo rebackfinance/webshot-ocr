@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"time"
 
 	webshot "github.com/rebackfinance/webshot-ocr"
 )
@@ -23,14 +24,14 @@ func main() {
 	}
 
 	url := "https://github.com/iqquee"
-
-	byteImage, err := driver.Screenshot(url)
+	sleepInverval := 4 * time.Second
+	byteImage, err := driver.Screenshot(url, sleepInverval)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	fileName := "screenshot" + ".png"
+	fileName := "screenshot1" + ".png"
 	pngData, _ := os.Create(fileName)
 	pngData.Write([]byte(byteImage))
 }
