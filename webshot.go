@@ -11,7 +11,7 @@ var (
 	ChromeBrowser = "chrome"
 	// FirefoxBrowser for the firefox browser
 	FirefoxBrowser = "firefox"
-	// BrowserError is the error returned when the browser type entered by the user is not firefox
+	// ErrBrowser is the error returned when the browser type entered by the user is not firefox
 	ErrBrowser = errors.New("the supported browser is firefox")
 )
 

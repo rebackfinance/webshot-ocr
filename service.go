@@ -56,7 +56,7 @@ func NewWebshot(c NewConfig) (*Webshot, error) {
 		return nil, err
 	}
 
-	fmt.Printf("The service ran successfully\n")
+	fmt.Println("The service ran successfully")
 	return &Webshot{
 		Webdriver: wd,
 		Service:   service,

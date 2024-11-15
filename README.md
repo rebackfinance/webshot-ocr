@@ -27,6 +27,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"time"
 
 	webshot "github.com/rebackfinance/webshot-ocr"
 )
@@ -47,8 +48,8 @@ func main() {
 	}
 
 	url := "https://google.com"
-
-	byteImage, err := driver.Screenshot(url)
+	sleepInverval := 4 * time.Second
+	byteImage, err := driver.Screenshot(url, sleepInverval)
 	if err != nil {
 		fmt.Println(err)
 		return
