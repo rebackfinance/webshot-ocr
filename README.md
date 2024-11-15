@@ -27,6 +27,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"time"
 
 	webshot "github.com/rebackfinance/webshot-ocr"
 )
