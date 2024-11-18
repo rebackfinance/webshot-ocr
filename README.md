@@ -38,7 +38,7 @@ func main() {
 		Port:        4444, // you can change accordingly to which ever port you wish
 		BrowserName: webshot.FirefoxBrowser,
 		DebugMode:   true, // set to true if you want to get the logs
-		DriverPath:  "", // your gekodriver path goes in here
+		DriverPath:  "./creds/geckodriver", // your gekodriver path goes in here
 	}
 
 	driver, err := webshot.NewWebshot(config)
@@ -47,15 +47,15 @@ func main() {
 		return
 	}
 
-	url := "https://google.com"
+	url := "https://github.com/iqquee"
 	sleepInverval := 4 * time.Second
-	byteImage, err := driver.Screenshot(url, sleepInverval)
+	byteImage, err := driver.Screenshot(url, true, sleepInverval)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	fileName := "screenshot" + ".png"
+	fileName := "screenshot1" + ".png"
 	pngData, _ := os.Create(fileName)
 	pngData.Write([]byte(byteImage))
 }
