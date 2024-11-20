@@ -12,21 +12,26 @@ func (p *Webshot) Screenshot(requestURL string, removeModals bool, sleepInterval
 	if removeModals {
 		// Inject JavaScript to handle modals
 		js := `
-			// Function to remove modals
-			function removeModals() {
+			// Function to remove modals and overlays
+			function removeModalsAndOverlays() {
+				// Select and remove modal elements
 				document.querySelectorAll('[role="dialog"], .modal, .popup, [data-modal]').forEach(el => el.remove());
-			}
-			
-			// Remove existing modals
-			removeModals();
 
-			// Set up a MutationObserver to remove dynamically added modals
-			const observer = new MutationObserver((mutations) => {
-				removeModals();
+				// Select and hide overlay elements
+				document.querySelectorAll('.overlay, .backdrop, [class*="overlay"], [class*="backdrop"]').forEach(el => el.style.display = 'none');
+			}
+
+			// Execute removal on initial load
+			removeModalsAndOverlays();
+
+			// Set up a MutationObserver to handle dynamically added modals and overlays
+			const observer = new MutationObserver(() => {
+				removeModalsAndOverlays();
 			});
+
 			observer.observe(document.body, { childList: true, subtree: true });
 
-			console.log("Modal removal script injected.");
+			console.log("Modal and overlay removal script injected.");
 		`
 		_, err := p.Webdriver.ExecuteScript(js, nil)
 		if err != nil {
