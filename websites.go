@@ -20,14 +20,16 @@ func (p *Webshot) Screenshot(requestURL string, removeModals bool, sleepInterval
 						'[class*="overlay"]', '[class*="backdrop"]', 
 						'[id*="modal"]', '[id*="overlay"]', 
 						'[aria-modal="true"]', '[role="presentation"]',
-						'[data-testid="dialog"]', '[aria-label="Close"]'
+						'[data-testid="dialog"]', '[aria-label="Close"]',
+						'[data-pagelet="root"]', // Facebook-specific
+						'[data-pagelet="dialog"]', // Facebook-specific
+						'._a9-z', // Instagram-specific
+						'._a9-2', // Instagram-specific
 					];
 
 					// Remove elements matching the selectors
 					selectors.forEach((selector) => {
-						document.querySelectorAll(selector).forEach((el) => {
-							el.remove();
-						});
+						document.querySelectorAll(selector).forEach((el) => el.remove());
 					});
 
 					// Hide stubborn overlays based on high z-index
