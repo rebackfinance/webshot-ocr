@@ -16,15 +16,19 @@ func (p *Webshot) Screenshot(requestURL string, removeModals bool, sleepInterval
 				// Function to remove modals and overlays
 				function removeModalsAndOverlays() {
 					const selectors = [
+						// General selectors
 						'[role="dialog"]', '.modal', '.popup', '[data-modal]',
-						'[class*="overlay"]', '[class*="backdrop"]', 
-						'[id*="modal"]', '[id*="overlay"]', 
+						'[class*="overlay"]', '[class*="backdrop"]',
+						'[id*="modal"]', '[id*="overlay"]',
 						'[aria-modal="true"]', '[role="presentation"]',
 						'[data-testid="dialog"]', '[aria-label="Close"]',
-						'[data-pagelet="root"]', // Facebook-specific
-						'[data-pagelet="dialog"]', // Facebook-specific
-						'._a9-z', // Instagram-specific
-						'._a9-2', // Instagram-specific
+						
+						// Facebook-specific selectors
+						'[data-pagelet="root"]', '[data-pagelet="dialog"]',
+						'.m9osqain', '.j83agx80', '.cbu4d94t', // Common Facebook modal/backdrop classes
+						
+						// Instagram-specific selectors
+						'._a9-z', '._a9-2'
 					];
 
 					// Remove elements matching the selectors
@@ -32,7 +36,7 @@ func (p *Webshot) Screenshot(requestURL string, removeModals bool, sleepInterval
 						document.querySelectorAll(selector).forEach((el) => el.remove());
 					});
 
-					// Hide stubborn overlays based on high z-index
+					// Hide stubborn overlays with high z-index
 					document.querySelectorAll('*').forEach((el) => {
 						const style = window.getComputedStyle(el);
 						if ((style.position === 'fixed' || style.position === 'absolute') && parseInt(style.zIndex) > 999) {
