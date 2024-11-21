@@ -14,25 +14,32 @@ func (p *Webshot) Screenshot(requestURL string, removeModals bool, sleepInterval
 		js := `
 			// Function to remove modals and overlays
 			function removeModalsAndOverlays() {
-				// Remove modal elements
-				document.querySelectorAll('[role="dialog"], .modal, .popup, [data-modal]').forEach(el => el.remove());
+				// Define selectors for common modal and overlay elements
+				const modalSelectors = [
+					'[role="dialog"]',
+					'.modal',
+					'.popup',
+					'[data-modal]',
+					'.overlay',
+					'.backdrop',
+					'[class*="overlay"]',
+					'[class*="backdrop"]',
+					'[class*="root"]',
+					'[class*="layer"]',
+					'[id*="modal"]',
+					'[id*="overlay"]',
+				];
 
-				// Remove known overlay elements
-				document.querySelectorAll('.overlay, .backdrop, [class*="overlay"], [class*="backdrop"]').forEach(el => el.remove());
-
-				// Specific handling for Instagram and Facebook overlays
-				document.querySelectorAll('[class*="root"], [class*="layer"]').forEach(el => {
-					const style = window.getComputedStyle(el);
-					if (style.position === 'fixed' || style.zIndex > 1000) {
-						el.remove(); // Remove overlay-like elements
-					}
+				// Attempt to remove modal and overlay elements
+				modalSelectors.forEach(selector => {
+					document.querySelectorAll(selector).forEach(el => el.remove());
 				});
 
-				// General fallback: Hide stubborn overlays with high z-index
+				// General fallback: Force-hide stubborn overlays with high z-index
 				document.querySelectorAll('*').forEach(el => {
 					const style = window.getComputedStyle(el);
-					if (style.position === 'fixed' && style.zIndex > 1000) {
-						el.style.display = 'none'; // Force-hide high z-index elements
+					if (style.position === 'fixed' && parseInt(style.zIndex) > 1000) {
+						el.style.display = 'none'; // Hide high z-index elements
 					}
 				});
 			}
