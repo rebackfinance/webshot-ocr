@@ -14,8 +14,8 @@ func (p *Webshot) Screenshot(requestURL string, removeModals bool, sleepInterval
 		js := `
 			// Function to remove modals and overlays
 			function removeModalsAndOverlays() {
-				// Define selectors for common modal and overlay elements
-				const modalSelectors = [
+				// General selectors for modals and overlays
+				const selectors = [
 					'[role="dialog"]',
 					'.modal',
 					'.popup',
@@ -30,16 +30,24 @@ func (p *Webshot) Screenshot(requestURL string, removeModals bool, sleepInterval
 					'[id*="overlay"]',
 				];
 
-				// Attempt to remove modal and overlay elements
-				modalSelectors.forEach(selector => {
+				// Remove elements matching the selectors
+				selectors.forEach(selector => {
 					document.querySelectorAll(selector).forEach(el => el.remove());
 				});
 
-				// General fallback: Force-hide stubborn overlays with high z-index
+				// Special handling for Facebook overlays
+				document.querySelectorAll('[data-pagelet], [id^="facebook"], [class*="transparent"]').forEach(el => {
+					const style = window.getComputedStyle(el);
+					if (style.position === 'fixed' || parseInt(style.zIndex) > 1000) {
+						el.remove(); // Remove if it acts as an overlay
+					}
+				});
+
+				// General fallback: Hide stubborn overlays
 				document.querySelectorAll('*').forEach(el => {
 					const style = window.getComputedStyle(el);
 					if (style.position === 'fixed' && parseInt(style.zIndex) > 1000) {
-						el.style.display = 'none'; // Hide high z-index elements
+						el.style.display = 'none'; // Force-hide high z-index elements
 					}
 				});
 			}
