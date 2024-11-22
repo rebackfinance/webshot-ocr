@@ -12,34 +12,21 @@ func (p *Webshot) Screenshot(requestURL string, removeModals bool, sleepInterval
 	if removeModals {
 		// Inject JavaScript to handle modals
 		js := `
-			    // Function to remove modals and overlays
+			// Function to remove modals and overlays
 			function removeModalsAndOverlays() {
-				// Define selectors for common modal and overlay elements
-				const modalSelectors = [
-					'[role="dialog"]',
-					'.modal',
-					'.popup',
-					'[data-modal]',
-					'.overlay',
-					'.backdrop',
-					'[class*="overlay"]',
-					'[class*="backdrop"]',
-					'[class*="root"]',
-					'[class*="layer"]',
-					'[id*="modal"]',
-					'[id*="overlay"]',
-				];
+				// Select and remove modal elements
+				document.querySelectorAll('[role="dialog"], .modal, .popup, [data-modal]').forEach(el => el.remove());
 
-				// Attempt to remove modal and overlay elements
-				modalSelectors.forEach(selector => {
-					document.querySelectorAll(selector).forEach(el => el.remove());
+				// Select and remove overlay elements
+				document.querySelectorAll('.overlay, .backdrop, [class*="overlay"], [class*="backdrop"]').forEach(el => {
+					el.remove(); // Attempt to completely remove the overlay element
 				});
 
-				// General fallback: Force-hide stubborn overlays with high z-index
+				// If overlays are not removable, hide them forcefully
 				document.querySelectorAll('*').forEach(el => {
 					const style = window.getComputedStyle(el);
-					if (style.position === 'fixed' && parseInt(style.zIndex) > 1000) {
-						el.style.display = 'none'; // Hide high z-index elements
+					if (style.position === 'fixed' && style.zIndex > 1000) {
+						el.style.display = 'none'; // Hide high z-index elements that could act as overlays
 					}
 				});
 			}
